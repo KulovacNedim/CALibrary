@@ -1,0 +1,99 @@
+
+<div #showBooks>
+    
+    <div class="form-inline">
+
+<button class="btn btn-dark btn-block addBtn" (click) = "onAddBook()">Add book</button>
+
+<div class="sortWrapper">
+    <div class="form-inline">
+      <label class="sortPlaceHolder">Sort by :</label>
+      <div class="sortBy">
+        <select class="form-control" (change)="onSort($event.target.value)">>
+          <option>Name</option>
+          <option>Author</option>
+          <option>Subject</option> 
+        </select>
+      </div>
+      <div class="arrows">
+        <button type="button" class="btn btn-dark btn-sm arrowUp" (click)="onChangeOrder('A')">▲</button>
+        <!--
+          <div class="d-flex justify-content-center">
+            <span class="glyphicon glyphicon-chevron-up" (click)="onChangeOrder('A')">up</span>
+          </button>
+          
+        </div>
+        <button class="btn btn-sm glyphicon glyphicon-chevron-up" (click)="onChangeOrder('A')" autofocus></button>
+      -->  
+      <button class="btn btn-dark btn-sm arrowDown" (click)="onChangeOrder('Z')">▼</button>
+    </div>
+    
+  </div>
+</div>
+    <div class="numberPlaceHolder"><p>Total Number of books: {{ books.length }} </p></div>
+</div>
+<table class="table table-striped table-dark" style="width:100%">
+  <thead>
+    <tr>
+    <!--  <th >#</th>
+    -->
+      <th>Name: </th>
+      <th>Author</th>
+      <th>Subject</th>
+      <th>Type</th>
+      <th>Published</th>
+      <th><!-- Intentinaly left empty --></th>
+</tr>
+  </thead>
+  <tbody>
+  
+      <!-- index as i 
+      <div class="bookContent">
+        -->
+          <tr *ngFor="let book of books | paginate: {itemsPerPage: 5, currentPage: p}; index as i">
+
+                <td class="entry"> {{book.name}} </td>
+           
+          <td class="entry">{{book.author}} </td>
+      
+            <td class="entry">{{book.subject}} </td>
+          
+       <td class="entry"> {{book.type}}</td>
+          <td class="entry">{{book.publishingYear}}</td>
+    <td><button class="btn btn-success dwnldBtn" (click)="onDownloadBook(book.id)"> Download </button>
+  
+          <button class="btn btn-secondary editBtn" (click) = "onEditBook(i)"> Edit</button>
+              <button class="btn btn-danger dltBtn" (click) = "onDeleteBook(book.id,i)">Delete</button></td>
+ 
+            </tr>
+            <!--
+    </div>
+   
+  
+ 
+      <div class="row">
+      <div class="col-md-4 text-secondary">
+      Copies: 
+    </div>
+      <div class="col-md-8"> 
+        {{book.numberOfCopies}} </div>
+      </div>
+      </div>
+   
+      
+      {{book.publisherID}} <br>--> 
+    </tbody>
+    <!--
+    </li>
+    </ul>
+      -->
+      
+             
+    </table>
+    <div class="pgnwrap">
+      <div class="paginationPlaceHolder">
+        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+      </div>
+    </div>
+    </div>
+    
