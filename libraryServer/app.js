@@ -6,7 +6,8 @@ const path = require('path');
 const cors = require('cors');
 const app = express();
 
-const { getBooks, addBook, deleteBook, getOneBook, editBook, increaseCopies, getContentLink, downloadFile} = require('./routes/books');
+const { getBooks, addBook, deleteBook, getOneBook, editBook, increaseCopies, getContentLink, downloadFile } = require('./routes/books');
+const { login } = require('./routes/users');
 const port = 2000;
 
 // create connection to database
@@ -43,6 +44,9 @@ app.post('/editBook', editBook);
 app.post('/increaseCopies', increaseCopies);
 app.get('/getDownloadLink/:id', getContentLink);
 app.get('/download/:file(*)', downloadFile);
+
+var Users = require('./routes/users')
+app.use('/users', Users)
 
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);

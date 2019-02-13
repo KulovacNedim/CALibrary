@@ -12,11 +12,14 @@ import { Routes, RouterModule } from '@angular/router' ;
 import { manageService } from './manageService.service' ;
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthenticationService } from './authentication.service';
 const appRoutes : Routes = [ 
   { path: '', component: LoginComponent},
   { path: 'editBook', component: EditContentComponent} , 
   { path: 'addBook', component: AddContentComponent }, 
-  { path: 'loadBooks', component: LoadContentComponent}
+  { path: 'loadBooks', component: LoadContentComponent},
+  { path: 'register', component: RegisterComponent}
 ] ;
 
 @NgModule({
@@ -25,7 +28,8 @@ const appRoutes : Routes = [
     LoadContentComponent,
     AddContentComponent,
     EditContentComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,7 @@ const appRoutes : Routes = [
     NgxPaginationModule,
     BrowserAnimationsModule
   ],
-  providers: [manageService],
+  providers: [manageService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
