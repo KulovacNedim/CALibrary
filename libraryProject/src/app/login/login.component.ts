@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router' ; 
 import { AuthenticationService, TokenPayload } from '../authentication.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
   credentials: TokenPayload = {
     id: 0,
     first_name: '',
@@ -17,6 +16,8 @@ export class LoginComponent {
     password: '',
     role_id: 0
   }
+
+
 
   constructor(private auth: AuthenticationService, private router: Router) {}
 
@@ -27,6 +28,7 @@ export class LoginComponent {
       },
       err => {
         console.error(err)
+        
         
       }
     )

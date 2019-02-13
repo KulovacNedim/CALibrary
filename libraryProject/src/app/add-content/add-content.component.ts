@@ -11,20 +11,10 @@ import { Book } from '../book.model' ;
 export class AddContentComponent implements OnInit {
   oneBook: Book = new Book(); 
   badInfo: boolean = false ;
-  public show:boolean = false;
-  public buttonName:any = 'Show';
-  
+
   constructor(private manageService: manageService, private router: Router) { }
 
   ngOnInit() {
-  }
-
-  toggle(){
-    this.show = !this.show;
-    if(this.show)  
-    this.buttonName = "Hide";
-  else
-    this.buttonName = "Show";
   }
 
   testFunction(){

@@ -15,8 +15,6 @@ export class RegisterComponent {
     role_id: 3
   };
 
-  showWarning: boolean = false;
-  warning: string = "";
 
   constructor(private auth: AuthenticationService, private router: Router) {}
 
@@ -24,9 +22,23 @@ export class RegisterComponent {
     this.auth.register(this.credentials).subscribe(
       (e) => {
         if(JSON.stringify(e).toLowerCase().search("warning") != -1) { //if response contain warning massage
-          this.showWarning = true;
           
+
         }else{
+          this.auth.login(this.credentials).subscribe(
+            () => {
+             this.router.navigateByUrl('/profile')
+            },
+            err => {
+              console.error(err)
+              console.log("greskaaaaaa")
+              
+            }
+          )
+          
+          
+          
+          
           //this.router.navigateByUrl("/profile");
         }
       },

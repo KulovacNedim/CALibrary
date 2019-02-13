@@ -32,10 +32,49 @@ export interface TokenPayload {
 
 @Injectable()
 export class AuthenticationService {
-  
   private token: string
-
+warning = ""
   constructor(private http: HttpClient, private router: Router) {}
+
+  setWarningMassage(setWarningMassage: string){
+    this.warning = setWarningMassage
+  }
+  getWarningMassage(){
+    return this.warning
+  }
+
+  private saveToken(token: string): void {
+    localStorage.setItem('usertoken', token)
+    this.token = token
+  }
+
+  private getToken(): string {
+    if (!this.token) {
+      this.token = localStorage.getItem('usertoken')
+    }
+    return this.token
+  }
+
+  public getUserDetails(): UserDetails {
+    const token = this.getToken()
+    let payload
+    if (token) {
+      payload = token.split('.')[1]
+      payload = window.atob(payload)
+      return JSON.parse(payload)
+    } else {
+      return null
+    }
+  }
+
+  public isLoggedIn(): boolean {
+    const user = this.getUserDetails()
+    if (user) {
+      return user.exp > Date.now() / 1000
+    } else {
+      return false
+    }
+  }
 
   public register(user: TokenPayload): Observable<any> {
     return this.http.post(`http://localhost:2000/users/register`, user)
@@ -56,22 +95,15 @@ export class AuthenticationService {
     return request
   }
 
-  private saveToken(token: string): void {
-    localStorage.setItem('usertoken', token)
-    this.token = token
-  }
-
   public profile(): Observable<any> {
     return this.http.get(`http://localhost:2000/users/profile`, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
 
-  private getToken(): string {
-    if (!this.token) {
-      this.token = localStorage.getItem('usertoken')
-    }
-    return this.token
+  public logout(): void {
+    this.token = ''
+    window.localStorage.removeItem('usertoken')
+    this.router.navigateByUrl('/')
   }
-
 }

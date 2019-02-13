@@ -12,20 +12,23 @@ import { Routes, RouterModule } from '@angular/router' ;
 import { manageService } from './manageService.service' ;
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { AuthenticationService } from './authentication.service';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthGuardService } from './auth-guard.service';
+import { RegisterComponent } from './register/register.component';
+import { AddEditGuardService } from './add-edit-guard.service';
+
 const appRoutes : Routes = [ 
   { path: '', component: LoginComponent},
-  { path: 'editBook', component: EditContentComponent} , 
-  { path: 'addBook', component: AddContentComponent }, 
-  { path: 'loadBooks', component: LoadContentComponent},
+  
+  { path: 'editBook', component: EditContentComponent, canActivate: [AddEditGuardService] } , 
+  { path: 'addBook', component: AddContentComponent, canActivate: [AddEditGuardService] }, 
+  { path: 'loadBooks', component: LoadContentComponent, canActivate: [AuthGuardService] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'register', component: RegisterComponent},
-  {
-    path: 'profile',
-    component: ProfileComponent
-  }
+  { path: '**', redirectTo: '' }
 ] ;
+ 
 
 @NgModule({
   declarations: [
@@ -34,8 +37,8 @@ const appRoutes : Routes = [
     AddContentComponent,
     EditContentComponent,
     LoginComponent,
-    RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ const appRoutes : Routes = [
     NgxPaginationModule,
     BrowserAnimationsModule
   ],
-  providers: [manageService, AuthenticationService],
+  providers: [manageService, AuthenticationService, AuthGuardService, AddEditGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

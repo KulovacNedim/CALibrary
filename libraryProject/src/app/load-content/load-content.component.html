@@ -3,7 +3,7 @@
     
     <div class="form-inline">
 
-<button class="btn btn-dark btn-block addBtn" (click) = "onAddBook()">Add book</button>
+<button class="btn btn-dark btn-block addBtn" (click) = "onAddBook()" *ngIf="!hideAddBtn()">Add book</button>
 
 <div class="sortWrapper">
     <div class="form-inline">
@@ -62,9 +62,9 @@
           <td class="entry">{{book.publishingYear}}</td>
     <td><button class="btn btn-success dwnldBtn" (click)="onDownloadBook(book.id)"> Download </button>
   
-          <button class="btn btn-secondary editBtn" (click) = "onEditBook(i)"> Edit</button>
-              <button class="btn btn-danger dltBtn" (click) = "onDeleteBook(book.id,i)">Delete</button></td>
- 
+          <button class="btn btn-secondary editBtn" (click) = "onEditBook(i)" *ngIf="!hideEditBtn()" > Edit</button>
+              <button class="btn btn-danger dltBtn" (click) = "onDeleteBook(book.id,i)" *ngIf="!hideDeleteBtn()">Delete</button></td>
+
             </tr>
             <!--
     </div>

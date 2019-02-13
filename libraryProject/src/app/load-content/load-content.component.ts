@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Book} from '../book.model' ; 
 import { manageService } from '../manageService.service'; 
 import { Routes, Router } from '@angular/router' ;  
+import { AuthenticationService, UserDetails } from '../authentication.service'
 
 @Component({
   selector: 'app-load-content',
@@ -14,8 +15,9 @@ export class LoadContentComponent implements OnInit {
   linkForDownload: string  ; 
   orderCriteria = 'A' ; 
   sortCriteria = 'Name' ; 
+  details: UserDetails;
 
-  constructor(private manageService : manageService, private router: Router ) {
+  constructor(private manageService : manageService, private router: Router, private auth: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -25,8 +27,20 @@ export class LoadContentComponent implements OnInit {
       this.manageService.saveBooks(this.books);
       this.sortByName();
     });
+    this.details = this.auth.getUserDetails();
   }
 
+  hideEditBtn(): boolean {
+    return this.details.role_id === 3;
+  }
+
+  hideAddBtn(): boolean {
+    return this.details.role_id === 3;
+  }
+
+  hideDeleteBtn(): boolean {
+    return this.details.role_id === 2 || this.details.role_id === 3;
+  }
   
    onAddBook() {
     this.router.navigate(['/addBook']);
