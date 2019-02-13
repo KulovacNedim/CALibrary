@@ -10,17 +10,16 @@ import { AddContentComponent } from './add-content/add-content.component';
 import { EditContentComponent } from './edit-content/edit-content.component';
 import { Routes, RouterModule } from '@angular/router' ;
 import { manageService } from './manageService.service' ;
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService } from './authentication.service';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuardService } from './auth-guard.service';
 import { RegisterComponent } from './register/register.component';
 import { AddEditGuardService } from './add-edit-guard.service';
+import { WarningComponent } from './warning/warning.component';
 
 const appRoutes : Routes = [ 
   { path: '', component: LoginComponent},
-  
   { path: 'editBook', component: EditContentComponent, canActivate: [AddEditGuardService] } , 
   { path: 'addBook', component: AddContentComponent, canActivate: [AddEditGuardService] }, 
   { path: 'loadBooks', component: LoadContentComponent, canActivate: [AuthGuardService] },
@@ -38,7 +37,8 @@ const appRoutes : Routes = [
     EditContentComponent,
     LoginComponent,
     ProfileComponent,
-    RegisterComponent
+    RegisterComponent,
+    WarningComponent
   ],
   imports: [
     BrowserModule,

@@ -28,12 +28,11 @@ export interface TokenPayload {
   role_id : number
 }
 
-
-
 @Injectable()
 export class AuthenticationService {
   private token: string
-warning = ""
+  warning:string = ""
+  
   constructor(private http: HttpClient, private router: Router) {}
 
   setWarningMassage(setWarningMassage: string){

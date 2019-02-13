@@ -17,7 +17,8 @@ export class LoginComponent {
     role_id: 0
   }
 
-
+  showWarning = false;
+  warning: string = "";
 
   constructor(private auth: AuthenticationService, private router: Router) {}
 
@@ -28,8 +29,8 @@ export class LoginComponent {
       },
       err => {
         console.error(err)
-        
-        
+        this.showWarning = true;
+        this.auth.setWarningMassage("Wrong credentials!");
       }
     )
   }

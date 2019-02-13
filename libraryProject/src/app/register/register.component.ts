@@ -15,6 +15,8 @@ export class RegisterComponent {
     role_id: 3
   };
 
+  showWarning = false;
+  warning: string = "";
 
   constructor(private auth: AuthenticationService, private router: Router) {}
 
@@ -22,8 +24,9 @@ export class RegisterComponent {
     this.auth.register(this.credentials).subscribe(
       (e) => {
         if(JSON.stringify(e).toLowerCase().search("warning") != -1) { //if response contain warning massage
-          
-
+          this.showWarning = true;
+          let warning = JSON.stringify(e);
+          this.auth.setWarningMassage(warning.substr(1, warning.length-2));
         }else{
           this.auth.login(this.credentials).subscribe(
             () => {
@@ -31,20 +34,12 @@ export class RegisterComponent {
             },
             err => {
               console.error(err)
-              console.log("greskaaaaaa")
-              
             }
           )
-          
-          
-          
-          
-          //this.router.navigateByUrl("/profile");
         }
       },
       err => {
         console.error(err);
-        console.log("User with that username already exist!");
       }
     );
   }
