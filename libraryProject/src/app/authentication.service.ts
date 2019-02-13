@@ -32,12 +32,33 @@ export interface TokenPayload {
 
 @Injectable()
 export class AuthenticationService {
+  
   private token: string
 
   constructor(private http: HttpClient, private router: Router) {}
 
   public register(user: TokenPayload): Observable<any> {
     return this.http.post(`http://localhost:2000/users/register`, user)
+  }
+
+  public login(user: TokenPayload): Observable<any> {
+    const base = this.http.post('http://localhost:2000/users/login', user)
+
+    const request = base.pipe(
+      map((data: TokenResponse) => {
+        if (data.token) {
+          this.saveToken(data.token)
+        }
+        return data
+      })
+    )
+
+    return request
+  }
+
+  private saveToken(token: string): void {
+    localStorage.setItem('usertoken', token)
+    this.token = token
   }
 
 }

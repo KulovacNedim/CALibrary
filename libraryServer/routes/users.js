@@ -45,4 +45,26 @@ users.post('/register', (req, res) => {
     })
 })
 
+users.post('/login', (req, res) => {
+  User.findOne({
+    where: {
+      email: req.body.email,
+      password: req.body.password
+    }
+  })
+    .then(user => {
+      if (user) {
+        let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+          expiresIn: 1440
+        })
+        res.json({ token: token })
+      } else {
+        res.send('User does not exist')
+      }
+    })
+    .catch(err => {
+      res.send('error: ' + err)
+    })
+})
+
 module.exports = users
