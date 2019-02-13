@@ -3,6 +3,9 @@
     padding: 50px;
     margin: 0 45%;
     font-size: 32px;
-   
-
 } 
+
+a {
+    color: #ffffff;
+    margin-top: 10px;
+}
