@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router' ; 
-import { manageService } from '../manageService.service' ; 
+import { BookService } from '../shared/services/book.service' ; 
 import { Book } from '../book.model' ; 
 
 @Component({
@@ -11,7 +11,7 @@ import { Book } from '../book.model' ;
 export class EditContentComponent implements OnInit {
 editingBook: Book = new Book() ; 
 
-  constructor(private manageService: manageService, private router: Router) { }
+  constructor(private manageService: BookService, private router: Router) { }
 
   ngOnInit() {
   this.editingBook = this.manageService.getToEdit() ;

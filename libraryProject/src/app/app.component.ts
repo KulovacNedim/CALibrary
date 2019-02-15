@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { manageService } from './manageService.service' ; 
+import { BookService } from './shared/services/book.service' ; 
 
 @Component({
   selector: 'app-root',
@@ -9,5 +9,5 @@ import { manageService } from './manageService.service' ;
 export class AppComponent {
   title = 'libraryProject';
 
-  constructor(private manageService : manageService ) {} 
+  constructor(private manageService : BookService ) {} 
 }

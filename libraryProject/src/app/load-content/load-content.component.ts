@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Book} from '../book.model' ; 
-import { manageService } from '../manageService.service'; 
+import { BookService } from '../shared/services/book.service'; 
 import { Routes, Router } from '@angular/router' ;  
-import { AuthenticationService, UserDetails } from '../authentication.service'
+import { AuthenticationService, UserDetails } from '../shared/services/authentication.service'
 
 @Component({
   selector: 'app-load-content',
@@ -17,17 +17,22 @@ export class LoadContentComponent implements OnInit {
   sortCriteria = 'Name' ; 
   details: UserDetails;
 
-  constructor(private manageService : manageService, private router: Router, private auth: AuthenticationService) {
+  base: string = "http://localhost:8080/api/file/";
+
+  constructor(private manageService : BookService, private router: Router, private auth: AuthenticationService) {
   }
 
   ngOnInit() {
     this.manageService.importBooks().subscribe((res: any[]) => {
       this.books = res;
-      console.log("Broj knjiga je " + this.books.length) ; 
-      this.manageService.saveBooks(this.books);
+      // this.manageService.saveBooks(this.books);// Z A S T O ///////////////////////////////////////////////////////////////////////////////////////////////////////
       this.sortByName();
     });
     this.details = this.auth.getUserDetails();
+  }
+
+  downloadLink(bookName: string) : string {
+    return this.base + bookName
   }
 
   hideEditBtn(): boolean {
@@ -53,22 +58,13 @@ export class LoadContentComponent implements OnInit {
     this.router.navigate(['/editBook']);     
   }
 
-  onDeleteBook(bookID: number, index: number) {
+  deleteBook(bookID: number, index: number) {
     this.manageService.deleteBook(bookID).toPromise().then((result) => {
       this.books.splice(index,1);
     });
   }
 
-  onDownloadBook(bookID: number) {
-    this.manageService.getLinkForDownload(bookID).subscribe( (res: string) => {
-      console.log("res[0]  " +  res[0]["content"]);
-        this.linkForDownload = res[0]["content"] ;
-        console.log("Link for download is " + this.linkForDownload) ; 
-        this.manageService.downloadFileWithLink(this.linkForDownload).toPromise().then((result) => {
-          console.log("Downloaded");
-        });
-    });
-  }
+
 
   onSort(sortCriteria: string) {
     this.sortCriteria = sortCriteria ; 

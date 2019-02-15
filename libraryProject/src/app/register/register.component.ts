@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { AuthenticationService, TokenPayload } from "../authentication.service";
+import { AuthenticationService, TokenPayload } from "../shared/services/authentication.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -20,8 +20,8 @@ export class RegisterComponent {
 
   constructor(private auth: AuthenticationService, private router: Router) {}
 
-  register() {
-    this.auth.register(this.credentials).subscribe(
+  userRegister() {
+    this.auth.userRegister(this.credentials).subscribe(
       (e) => {
         if(JSON.stringify(e).toLowerCase().search("warning") != -1) { //if response contain warning massage
           this.showWarning = true;

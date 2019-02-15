@@ -31,7 +31,7 @@ export interface TokenPayload {
 @Injectable()
 export class AuthenticationService {
   private token: string
-  warning:string = ""
+  private warning:string = ""
   
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -75,12 +75,12 @@ export class AuthenticationService {
     }
   }
 
-  public register(user: TokenPayload): Observable<any> {
-    return this.http.post(`http://localhost:2000/users/register`, user)
+  public userRegister(user: TokenPayload): Observable<any> {
+    return this.http.post(`http://localhost:8080/users/register`, user)
   }
 
   public login(user: TokenPayload): Observable<any> {
-    const base = this.http.post('http://localhost:2000/users/login', user)
+    const base = this.http.post('http://localhost:8080/users/login', user)
 
     const request = base.pipe(
       map((data: TokenResponse) => {
@@ -95,7 +95,7 @@ export class AuthenticationService {
   }
 
   public profile(): Observable<any> {
-    return this.http.get(`http://localhost:2000/users/profile`, {
+    return this.http.get(`http://localhost:8080/users/profile`, {
       headers: { Authorization: ` ${this.getToken()}` }
     })
   }
