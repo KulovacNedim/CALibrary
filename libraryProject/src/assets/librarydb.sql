@@ -15,6 +15,10 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `roles`;
+DROP TABLE IF EXISTS `books`;
 --
 -- Table structure for table `books`
 --
@@ -31,6 +35,7 @@ CREATE TABLE `books` (
   `type` varchar(255) NOT NULL,
   `numberOfCopies` int(255) NOT NULL,
   `content` varchar(255) NOT NULL,
+  `created_by` int(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -41,7 +46,7 @@ CREATE TABLE `books` (
 
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (1,'Book 1','Author 1','Subject 1',2019,'PDF',0,'link1'),(2,'Book 2','Author 2','Subject 2',2019,'PDF',0,'link2'),(3,'Book 3','Author 3','Subject 3',2019,'PDF',0,'link3'),(4,'Book 4','Author 4','Subject 4',2019,'PDF',0,'link4'),(5,'Book 5','Author 5','Subject 5',2019,'PDF',0,'link5'),(6,'Book 6','Author 6','Subject 6',2019,'PDF',0,'link6'),(7,'Book 7','Author 7','Subject 7',2019,'PDF',0,'link7'),(8,'Book 8','Author 8','Subject 8',2019,'PDF',0,'link8'),(9,'Book 9','Author 9','Subject 9',2019,'PDF',0,'link9'),(10,'Book 10','Author 10','Subject 10',2019,'PDF',0,'link10');
+INSERT INTO `books` VALUES (1,'Book 1','Author 1','Subject 1',2019,'PDF',0,'link1',1),(2,'Book 2','Author 2','Subject 2',2019,'PDF',0,'link2',2),(3,'Book 3','Author 3','Subject 3',2019,'PDF',0,'link3',3),(4,'Book 4','Author 4','Subject 4',2019,'PDF',0,'link4',4),(5,'Book 5','Author 5','Subject 5',2019,'PDF',0,'link5',5),(6,'Book 6','Author 6','Subject 6',2019,'PDF',0,'link6',6),(7,'Book 7','Author 7','Subject 7',2019,'PDF',0,'link7',7),(8,'Book 8','Author 8','Subject 8',2019,'PDF',0,'link8',8),(9,'Book 9','Author 9','Subject 9',2019,'PDF',0,'link9',9),(10,'Book 10','Author 10','Subject 10',2019,'PDF',0,'link10',10);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +101,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'FirstName 1 - Admin','LastName 1 ','Email 1','pass1','2019-02-14',1),(2,'FirstName 2 - Author','LastName 2 ','Email 2','pass2','2019-02-14',2),(3,'FirstName 3 - Teacher','LastName 3 ','Email 3','pass3','2019-02-14',3),(4,'FirstName 4 - Student','LastName 4 ','Email 4','pass4','2019-02-14',4);
+INSERT INTO `users` VALUES (1,'FirstName 1 - Admin','LastName 1 ','email1','pass1','2019-02-14',1),(2,'FirstName 2 - Author','LastName 2 ','email2','pass2','2019-02-14',2),(3,'FirstName 3 - Teacher','LastName 3 ','email3','pass3','2019-02-14',3),(4,'FirstName 4 - Student','LastName 4 ','email4','pass4','2019-02-14',4);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

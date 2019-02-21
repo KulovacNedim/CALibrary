@@ -13,6 +13,7 @@ router.post('/registerBook', controller.registerBook);
 
 router.get('/deleteBook/:id', controller.deleteBook);
 
+router.post('/deleteSelectedBooks', controller.deleteSelectedBooks);
 
  
 module.exports = router;

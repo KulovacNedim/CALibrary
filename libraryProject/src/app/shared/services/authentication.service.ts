@@ -1,44 +1,23 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
+import { UserDetails, TokenPayload, TokenResponse } from '../models/user.model';
 
-export interface UserDetails {
-  id: number
-  first_name: string
-  last_name: string
-  email: string
-  password: string
-  role_id: number
-  exp: number
-  iat: number
-}
-
-interface TokenResponse {
-  token: string
-}
-
-export interface TokenPayload {
-  id: number
-  first_name: string
-  last_name: string
-  email: string
-  password: string
-  role_id : number
-}
 
 @Injectable()
 export class AuthenticationService {
-  private token: string
-  private warning:string = ""
-  
-  constructor(private http: HttpClient, private router: Router) {}
 
-  setWarningMassage(setWarningMassage: string){
+  private token: string
+  private warning: string = ""
+
+  constructor(private http: HttpClient, private router: Router) { }
+
+  setWarningMassage(setWarningMassage: string) {
     this.warning = setWarningMassage
   }
-  getWarningMassage(){
+  getWarningMassage() {
     return this.warning
   }
 
@@ -79,6 +58,11 @@ export class AuthenticationService {
     return this.http.post(`http://localhost:8080/users/register`, user)
   }
 
+  public sendMail(user: TokenPayload): Observable<any> {
+    return this.http.post(`http://localhost:8080/users/sendMail`, user)
+
+  }
+
   public login(user: TokenPayload): Observable<any> {
     const base = this.http.post('http://localhost:8080/users/login', user)
 
@@ -90,7 +74,7 @@ export class AuthenticationService {
         return data
       })
     )
-
+    
     return request
   }
 

@@ -1,23 +1,54 @@
-<div class="container">
-  <div class="jumbotron mt-5">
-    <div class="col-sm-8 mx-auto">
-      <h1 class="text-center">PROFILE</h1>
-    </div>
-    <table class="table col-md-6 mx-auto">
-      <tr>
-        <td>Fist Name</td>
-        <td>{{ details?.first_name }}</td>
-      </tr>
-      <tr>
-        <td>Last Name</td>
-        <td>{{ details?.last_name }}</td>
-      </tr>
-      <tr>
-        <td>Email</td>
-        <td>{{ details?.email }}</td>
-      </tr>
-    </table>
-  </div>
-</div>
+<div class="wrapperClass">      
+  <h1 class="text-center">PROFILE</h1>
 
-<a routerLink="" (click)="auth.logout()">Logout</a>
+
+   <div class="container">
+     <div class="content">
+       <div class="row textRow">
+          <div class="col-5 fieldName">
+           <p>First Name:</p>
+         </div>
+         <div class="col-7">
+            <p>{{ userToEdit?.first_name }}</p>
+          </div>
+       </div>
+       <div class="row textRow">
+          <div class="col-5 fieldName">
+            <p>Last Name:</p>
+          </div>
+          <div class="col-7">
+             <p>{{ userToEdit?.last_name }}</p>
+           </div>
+        </div>
+        <div class="row textRow">
+            <div class="col-5 fieldName">
+              <p>Email:</p>
+            </div>
+            <div class="col-7">
+               <p>{{ userToEdit?.email }}</p>
+             </div>
+          </div>
+          <div class="row textRow">
+              <div class="col-5 fieldName">
+                <p>Role:</p>
+              </div>
+              <div class="col-7">
+                 <p>{{ currentUserRole }}</p>
+               </div>
+            </div>
+       
+</div>
+</div>
+<div class="row btns">
+<div class="col-sm-6">
+  <button class="btn btn-warning btn-block" (click)="onEditProfile(userToEdit.id)" routerLink="" >Edit</button>
+</div>
+<div class="col-sm-6">
+
+<a class="btn btn-secondary btn-block float-right logOutBtn" routerLink="" (click)="auth.logout()">Logout</a>
+</div>
+</div>
+<div class="row btns">
+<a class="btn btn-success btn-block toBooks" routerLink="/loadBooks">To Books</a>
+</div>
+</div>

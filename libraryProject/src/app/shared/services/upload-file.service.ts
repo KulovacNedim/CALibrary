@@ -1,19 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { throwError } from 'rxjs';
-
-
-export interface BookFields {
-  id: number
-  name: string
-  author: string
-  subject: string
-  publishingYear: number
-  type: string
-  numberOfCopies: number
-  content: string
-}
+import { BookFields } from '../models/book.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +30,4 @@ export class UploadFileService {
   public registerBook(book: BookFields): Observable<any> {
     return this.http.post(`http://localhost:8080/books/registerBook`, book)
   }
-
 }

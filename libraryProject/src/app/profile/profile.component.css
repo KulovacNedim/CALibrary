@@ -1,0 +1,47 @@
+.wrapperClass {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    color: white;
+    border-radius: 10px;
+    width: 600px;
+    margin: 0 auto;
+   border: 5px solid white;
+}
+
+.form-inline{
+    margin: 10px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.form-control{
+    margin: 0 10px;
+    width: 450px;
+    margin: 0 auto;
+}
+.btns{
+    margin: 15px;
+
+}
+ .logOutBtn{
+/*    margin-top: 10px;
+    margin-left: 90%;
+    margin-left: 60px;
+    */
+}
+.submitBtn{
+    margin-bottom: 10px;
+}
+
+.textRow{
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+.fieldName{
+    color: darkgray;
+}
+
+.toBooks{
+    margin:0 15px;
+}

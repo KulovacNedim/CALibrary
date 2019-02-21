@@ -41,7 +41,8 @@ exports.registerBook = (req, res) => {
         type: req.body.type,
         publisherID: req.body.publisherID,
         numberOfCopies: req.body.numberOfCopies,
-        content: req.body.content
+        content: req.body.content,
+        created_by: req.body.created_by
     }
 
     Book.findOne({
@@ -56,7 +57,7 @@ exports.registerBook = (req, res) => {
                         res.send('error: ' + err)
                     })
             } else {
-                res.json('Warning: User already exists')
+                res.json('Warning: Book already exists')
             }
         })
         .catch(err => {
@@ -74,5 +75,21 @@ exports.deleteBook = (req, res) => {
             return res.status(500).send(err);
         }
         return res.status(200).send(result);
+    });
+}
+
+
+exports.deleteSelectedBooks = (req, res) => {
+    let idsArray = req.body;
+
+    let qry = "DELETE  from `books` WHERE `id` IN(" + idsArray + ")";
+
+    db.query(qry, (err, result) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        return res.status(200).send(result);
+
     });
 }

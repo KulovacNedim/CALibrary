@@ -1,6 +1,6 @@
 const uploadFolder = __basedir + '/uploads/';
-const fs = require('fs');
- 
+
+
 exports.uploadFile = (req, res) => {
 	res.send('File uploaded successfully! -> filename = ' + req.file.filename);
 }
@@ -8,5 +8,5 @@ exports.uploadFile = (req, res) => {
 
 exports.downloadFile = (req, res) => {
 	let filename = req.params.filename;
-	res.download(uploadFolder + filename);  
+	res.download(uploadFolder + filename);
 }

@@ -25,10 +25,13 @@ module.exports = db.sequelize.define(
             type: Sequelize.STRING
         },
         numberOfCopies: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.INTEGER
         },
         content: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING
+        },
+        created_by: {
+            type: Sequelize.INTEGER
         }
     },
     {

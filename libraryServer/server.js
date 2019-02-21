@@ -2,6 +2,9 @@ var express = require('express');
 var app = express();
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs());
+
 
 const cors = require('cors')
 const corsOptions = {
@@ -9,17 +12,18 @@ const corsOptions = {
   optionsSuccessStatus: 200
 }
 
-const db = mysql.createConnection ({
+const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'librarydb'
+  database: 'librarydb',
+  multipleStatements: true
 });
 
 // connect to database
 db.connect((err) => {
   if (err) {
-      throw err;
+    throw err;
   }
   console.log('Connected to database');
 });
@@ -27,11 +31,11 @@ global.db = db;
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
 
 app.use(cors(corsOptions));
- 
+
 global.__basedir = __dirname;
 
 
@@ -52,5 +56,5 @@ let server = app.listen(8080, () => {
   let host = server.address().address
   let port = server.address().port
 
-  console.log("App listening at http://%s:%s", host, port); 
+  console.log("App listening at http://%s:%s", host, port);
 })

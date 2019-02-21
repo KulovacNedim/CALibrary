@@ -1,0 +1,56 @@
+<div class="wrapperClass">
+  <h1 class="text-center">EDIT PROFILE</h1>
+
+
+  <div class="container">
+    <div class="content">
+      <div class="form-inline">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" name="first_name" id="first_name" value="{{details?.first_name}}"
+          [(ngModel)]="details.first_name">
+      </div>
+
+      <div class="form-inline">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" name="last_name" id="last_name" value="{{details?.last_name}}"
+          [(ngModel)]="details.last_name">
+      </div>
+
+      <div class="form-inline">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email" id="email" value="{{details?.email}}"
+          [(ngModel)]="details.email">
+      </div>
+
+      <div class="form-inline">
+        <label for="password">Email</label>
+        <input type="password" class="form-control" name="password" id="password" value="{{details?.password}}"
+          [(ngModel)]="details.password">
+      </div>
+
+      <div class="form-inline">
+
+     
+
+
+        <label for="role_id">Role</label>
+        <select class="form-control" [(ngModel)]="details.role_id" [disabled]="!(userFromS.role_id===1)">
+          <option value="1">Admin</option>
+          <option value="2">Teacher</option>
+          <option value="3">Author</option>
+          <option value="4">Student</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row btns">
+    <div class="col-sm-6">
+      <button class="btn btn-success btn-block submitBtn" (click)="submitProfile()">Submit</button>
+    </div>
+    <div class="col-sm-6">
+
+      <a class="btn btn-secondary btn-block float-right logOutBtn" routerLink="" (click)="onBack()">Back</a>
+    </div>
+  </div>
+</div>
+

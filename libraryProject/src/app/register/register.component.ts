@@ -1,9 +1,11 @@
 import { Component } from "@angular/core";
-import { AuthenticationService, TokenPayload } from "../shared/services/authentication.service";
+import { AuthenticationService } from "../shared/services/authentication.service";
 import { Router } from "@angular/router";
+import { TokenPayload } from '../shared/models/user.model';
 
 @Component({
-  templateUrl: "./register.component.html"
+  templateUrl: "./register.component.html",
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
   credentials: TokenPayload = {
@@ -18,29 +20,32 @@ export class RegisterComponent {
   showWarning = false;
   warning: string = "";
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  constructor(private auth: AuthenticationService, private router: Router) { }
 
   userRegister() {
+    this.credentials.password = Math.random().toString(36).slice(-8);
+
+
     this.auth.userRegister(this.credentials).subscribe(
-      (e) => {
-        if(JSON.stringify(e).toLowerCase().search("warning") != -1) { //if response contain warning massage
+      (res) => {
+        if (JSON.stringify(res).toLowerCase().search("warning") != -1) {
           this.showWarning = true;
-          let warning = JSON.stringify(e);
-          this.auth.setWarningMassage(warning.substr(1, warning.length-2));
-        }else{
-          this.auth.login(this.credentials).subscribe(
-            () => {
-             this.router.navigateByUrl('/profile')
-            },
+          let warning = JSON.stringify(res);
+          this.auth.setWarningMassage(warning.substr(1, warning.length - 2));
+        } else {
+          this.auth.sendMail(this.credentials).subscribe(
             err => {
               console.error(err)
             }
           )
+          this.router.navigateByUrl('/')
         }
       },
       err => {
         console.error(err);
       }
     );
+
+
   }
 }

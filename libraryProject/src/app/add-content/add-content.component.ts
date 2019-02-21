@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BookService } from '../shared/services/book.service' ; 
-import { Router } from '@angular/router' ; 
-import { Book } from '../book.model' ; 
-import { BookFields, UploadFileService } from '../shared/services/upload-file.service';
+import { Router } from '@angular/router';
+import { UploadFileService } from '../shared/services/upload-file.service';
 import { HttpResponse, HttpEventType } from '@angular/common/http';
+import { AuthenticationService } from '../shared/services/authentication.service';
+import { BookFields } from '../shared/models/book.model';
+import { UserDetails } from '../shared/models/user.model';
 
 
 @Component({
@@ -13,7 +14,6 @@ import { HttpResponse, HttpEventType } from '@angular/common/http';
 })
 export class AddContentComponent implements OnInit {
 
-
   credentials: BookFields = {
     id: 0,
     name: "",
@@ -22,20 +22,25 @@ export class AddContentComponent implements OnInit {
     publishingYear: 0,
     type: "",
     numberOfCopies: 0,
-    content: ""
+    content: "",
+    created_by: 0
   };
+
+  details: UserDetails;
 
   selectedFiles: FileList;
   currentFileUpload: File;
   progress: { percentage: number } = { percentage: 0 };
 
 
-  oneBook: Book = new Book(); 
-  badInfo: boolean = false ;
+  oneBook: BookFields;
+  badInfo: boolean = false;
 
-  constructor(private manageService: BookService, private router: Router, private uploadService: UploadFileService) { }
+  constructor(private auth: AuthenticationService, private router: Router, private uploadService: UploadFileService) { }
 
   ngOnInit() {
+    this.details = this.auth.getUserDetails();
+    this.credentials.created_by = this.details.id;
   }
 
   selectFile(event) {
@@ -57,7 +62,7 @@ export class AddContentComponent implements OnInit {
       }
     });
 
-    //this.selectedFiles = undefined;
+    this.selectedFiles = undefined;
 
     // make record in db
     this.uploadService.registerBook(this.credentials).subscribe(
@@ -84,12 +89,12 @@ export class AddContentComponent implements OnInit {
 
 
 
-  testFunction(){
+  testFunction() {
     document.getElementById('hCopy').onclick = showNumberOfCopies;
 
-  function showNumberOfCopies(){
-    document.getElementById('copyNo').style.visibility="visible"; 
-   }
+    function showNumberOfCopies() {
+      document.getElementById('copyNo').style.visibility = "visible";
+    }
   }
 
   // onConfirmAddingBook() {
@@ -97,7 +102,7 @@ export class AddContentComponent implements OnInit {
   //     this.badInfo = true ;
   //   } 
   //   else { 
-    
+
   //   let bookID = this.manageService.checkIfBookExists(this.oneBook) ;  
   //   console.log(bookID); 
   //   if ( bookID  !== -1 ) { 

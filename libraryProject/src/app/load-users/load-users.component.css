@@ -1,0 +1,23 @@
+.pgnwrap{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.paginationPlaceHolder{
+    text-align: center;
+    border-radius: 5px;
+  
+}
+
+.my-pagination /deep/ .ngx-pagination .current{
+    background-color: rgba(0, 0, 0, 0.5);
+   
+  }
+  .my-pagination /deep/ .ngx-pagination li{
+
+    color: white;
+  }
+
+  .editBtn{
+    width:100px ;
+    margin: 3px;
+}
