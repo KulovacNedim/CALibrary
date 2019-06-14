@@ -20,9 +20,9 @@ export class AddContentComponent implements OnInit {
     author: "",
     subject: "",
     publishingYear: 0,
-    type: "",
+    type: '',
     numberOfCopies: 0,
-    content: "",
+    content: '',
     created_by: 0
   };
 
@@ -34,7 +34,7 @@ export class AddContentComponent implements OnInit {
 
 
   oneBook: BookFields;
-  badInfo: boolean = false;
+  badInfo = false;
 
   constructor(private auth: AuthenticationService, private router: Router, private uploadService: UploadFileService) { }
 
@@ -45,7 +45,7 @@ export class AddContentComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
-    this.credentials.content = this.selectedFiles[0].name
+    this.credentials.content = this.selectedFiles[0].name;
   }
 
   upload() {
