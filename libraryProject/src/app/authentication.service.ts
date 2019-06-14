@@ -61,4 +61,17 @@ export class AuthenticationService {
     this.token = token
   }
 
+  public profile(): Observable<any> {
+    return this.http.get(`http://localhost:2000/users/profile`, {
+      headers: { Authorization: ` ${this.getToken()}` }
+    })
+  }
+
+  private getToken(): string {
+    if (!this.token) {
+      this.token = localStorage.getItem('usertoken')
+    }
+    return this.token
+  }
+
 }
