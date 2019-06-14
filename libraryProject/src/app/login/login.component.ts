@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router' ; 
+import { AuthenticationService, TokenPayload } from '../authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +9,26 @@ import { Router } from '@angular/router' ;
 })
 export class LoginComponent {
 
+  credentials: TokenPayload = {
+    id: 0,
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    role_id: 0
+  }
 
-  constructor() {}
+  constructor(private auth: AuthenticationService, private router: Router) {}
 
- 
+  login() {
+    this.auth.login(this.credentials).subscribe(
+      () => {
+       this.router.navigateByUrl('/loadBooks')
+      },
+      err => {
+        console.error(err)
+        
+      }
+    )
+  }
 }
