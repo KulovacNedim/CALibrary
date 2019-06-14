@@ -1,12 +1,22 @@
+
 .wrapperClass {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 25px;
     color: white;
     border-radius: 10px;
     width: 375px;
+    margin: 0 auto;
    border: 5px solid white;
+}
+
+ button{
+    margin: 5px 0;
 }
 
 #copyNo{
     visibility: hidden;
-} 
+}
+
+hr{
+    background-color: white;
+}

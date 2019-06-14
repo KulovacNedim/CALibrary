@@ -4,10 +4,13 @@ body {
     
 }
 
+
 .logoPlaceholder {
     color: white;
 }
-
+.caDesign{
+    color: #42a1f4;
+}
 .navbar {
     border-bottom: 3px solid white;
 }

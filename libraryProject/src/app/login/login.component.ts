@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService, TokenPayload } from '../authentication.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../shared/services/authentication.service';
+import { TokenPayload, UserDetails } from '../shared/models/user.model';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,17 +19,29 @@ export class LoginComponent {
     password: '',
     role_id: 0
   }
+  user: UserDetails;
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  showWarning = false;
+  warning: string = "";
+
+  constructor(private auth: AuthenticationService, private router: Router, private userService: UserService) { }
 
   login() {
     this.auth.login(this.credentials).subscribe(
       () => {
-       this.router.navigateByUrl('/loadBooks')
+
+        var combe = this.auth.getUserDetails()
+
+
+        this.userService.setUser(combe)
+
+
+        this.router.navigateByUrl('/profile')
       },
       err => {
         console.error(err)
-        
+        this.showWarning = true;
+        this.auth.setWarningMassage("Wrong credentials!");
       }
     )
   }

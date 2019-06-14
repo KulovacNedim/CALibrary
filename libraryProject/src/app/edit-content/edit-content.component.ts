@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router' ; 
-import { manageService } from '../manageService.service' ; 
-import { Book } from '../book.model' ; 
+import { Router } from '@angular/router';
+import { BookService } from '../shared/services/book.service';
+import { BookFields } from '../shared/models/book.model';
+
 
 @Component({
   selector: 'app-edit-content',
@@ -9,19 +10,19 @@ import { Book } from '../book.model' ;
   styleUrls: ['./edit-content.component.css']
 })
 export class EditContentComponent implements OnInit {
-editingBook: Book = new Book() ; 
 
-  constructor(private manageService: manageService, private router: Router) { }
+  editingBook: BookFields;
+
+  constructor(private bookService: BookService, private router: Router) { }
 
   ngOnInit() {
-  this.editingBook = this.manageService.getToEdit() ;
+    this.editingBook = this.bookService.getToEdit();
   }
 
   onSubmitEdit() {
-    this.manageService.updateBook(this.editingBook).toPromise().then( (result) => {
-      this.editingBook = new Book();
+    this.bookService.updateBook(this.editingBook).toPromise().then((result) => {
       this.router.navigate(['/loadBooks']);
-    }); 
+    });
   }
 
 

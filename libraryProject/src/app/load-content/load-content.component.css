@@ -1,33 +1,35 @@
 
 .numberPlaceHolder{
-    text-align: right;
+    
     color: white;
     font-size: 20px;
-    width: 375px;
+    width: 235px;
    
 }
 
-.sortBy{
-    margin: 0 5px;
-    padding: 0 5px;
+.addBtn{
+    width: 120px;
+    margin-right: 5px;
+    text-align: center;
+   
+}
+
+
+.sortWrapper{
+   /* padding: 0 10px;*/
+    color: white;
     
+   /* max-width: 175px; */
 }
 .sortPlaceHolder{
     color: white;
     font-size: 20px;
 }
-.sortWrapper{
-    padding: 0 10px;
-    color: white;
-    display: inline;
-    text-align: center;
-}
 
-
-.addBtn{
-    width: 375px;
-    margin-right: 25px;
-text-align: center;    
+.sortBy{
+   /* margin: 0 5px;
+    padding: 0 5px;*/
+    width: 125px;
 }
 
 .dwnldBtn{
@@ -50,7 +52,7 @@ text-align: center;
 }
 
 .paginationPlaceHolder{
-    margin: 0 35%;
+    text-align: center;
     border-radius: 5px;
   
 }
@@ -64,8 +66,41 @@ text-align: center;
     color: white;
   }
 
- .arrowUp{
-     margin-right: 3px;   
- }
-
  
+.arrowUp{
+    border: 2px solid black;
+    margin: 0 2px;
+}
+ 
+.arrowDown{
+    border: 2px solid black;
+    margin: 0 2px;
+}
+ /* .contentHolder{
+    margin-bottom: 5px;
+}  */
+ 
+.posRght{
+    float: right;
+
+     margin-bottom: 5px;
+} 
+
+.contentHolder1{
+    margin-right: 100px;
+    margin-bottom: 5px;
+}
+
+#checkbox{
+    padding: 5px;
+}
+/*
+.dltSelected{
+    width: 200px;
+}
+
+
+.toProfile{
+    width: 200px;
+}
+*/

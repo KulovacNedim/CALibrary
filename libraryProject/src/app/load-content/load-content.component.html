@@ -1,99 +1,104 @@
 
-<div #showBooks>
+
+    <div #showBooks>
     
-    <div class="form-inline">
-
-<button class="btn btn-dark btn-block addBtn" (click) = "onAddBook()">Add book</button>
-
-<div class="sortWrapper">
-    <div class="form-inline">
-      <label class="sortPlaceHolder">Sort by :</label>
-      <div class="sortBy">
-        <select class="form-control" (change)="onSort($event.target.value)">>
-          <option>Name</option>
-          <option>Author</option>
-          <option>Subject</option> 
-        </select>
-      </div>
-      <div class="arrows">
-        <button type="button" class="btn btn-dark btn-sm arrowUp" (click)="onChangeOrder('A')">▲</button>
-        <!--
-          <div class="d-flex justify-content-center">
-            <span class="glyphicon glyphicon-chevron-up" (click)="onChangeOrder('A')">up</span>
-          </button>
-          
-        </div>
-        <button class="btn btn-sm glyphicon glyphicon-chevron-up" (click)="onChangeOrder('A')" autofocus></button>
-      -->  
-      <button class="btn btn-dark btn-sm arrowDown" (click)="onChangeOrder('Z')">▼</button>
-    </div>
+      <div class="container">  
+       
+          <div class="container"> 
     
-  </div>
-</div>
-    <div class="numberPlaceHolder"><p>Total Number of books: {{ books.length }} </p></div>
-</div>
-<table class="table table-striped table-dark" style="width:100%">
-  <thead>
-    <tr>
-    <!--  <th >#</th>
-    -->
-      <th>Name: </th>
-      <th>Author</th>
-      <th>Subject</th>
-      <th>Type</th>
-      <th>Published</th>
-      <th><!-- Intentinaly left empty --></th>
-</tr>
-  </thead>
-  <tbody>
-  
-      <!-- index as i 
-      <div class="bookContent">
-        -->
-          <tr *ngFor="let book of books | paginate: {itemsPerPage: 5, currentPage: p}; index as i">
-
-                <td class="entry"> {{book.name}} </td>
+          <div class="row">
+               <div class="contentHolder1">
+             <div class="input-group">
+                   <div class="input-group-prepend">
+                       <button class="btn btn-dark btn-block addBtn" (click) = "addBook()" *ngIf="hideAddBtn()">Add book</button>
+                 
+                     <div class="sortWrapper">
+                             <input type="text" class="form-control" name="searchString" placeholder="Search" [(ngModel)]="searchString">
+                           </div>
+                         </div>
+                           </div>
+             </div>
            
-          <td class="entry">{{book.author}} </td>
-      
-            <td class="entry">{{book.subject}} </td>
-          
-       <td class="entry"> {{book.type}}</td>
-          <td class="entry">{{book.publishingYear}}</td>
-    <td><button class="btn btn-success dwnldBtn" (click)="onDownloadBook(book.id)"> Download </button>
-  
-          <button class="btn btn-secondary editBtn" (click) = "onEditBook(i)"> Edit</button>
-              <button class="btn btn-danger dltBtn" (click) = "onDeleteBook(book.id,i)">Delete</button></td>
- 
-            </tr>
-            <!--
-    </div>
-   
-  
- 
-      <div class="row">
-      <div class="col-md-4 text-secondary">
-      Copies: 
-    </div>
-      <div class="col-md-8"> 
-        {{book.numberOfCopies}} </div>
-      </div>
-      </div>
-   
-      
-      {{book.publisherID}} <br>--> 
-    </tbody>
-    <!--
-    </li>
-    </ul>
-      -->
-      
-             
-    </table>
-    <div class="pgnwrap">
-      <div class="paginationPlaceHolder">
-        <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>
-      </div>
-    </div>
-    </div>
+                 <div class="contentHolder">
+                   <div class="posRght">
+                   <div class="input-group-row">
+                     <div class="input-group-prepend">
+                       <button class="btn btn-dark  btn-sm" disabled> Total books: <span class="badge badge-light"> {{ books.length }}</span></button>
+                       
+                       <button class="btn btn-dark btn-sm arrowUp" (click)="changeOrder('A')">▲</button>
+                       
+                       <button class="btn btn-dark btn-sm arrowDown" (click)="changeOrder('Z')">▼</button>
+                       
+                       <div class="sortBy">
+                       <select class="form-control" (change)="sort($event.target.value)">
+                           <option value="" hidden>Sort by</option>
+                           <option>Name</option>
+                           <option>Author</option>
+                           <option>Subject</option> 
+                         </select>
+                       </div>
+                           
+                       
+                     </div>
+                   </div>
+                  </div>
+                </div>
+     
+                </div>
+              </div>
     
+    <table class="table table-striped table-dark" style="width:100%">
+      <thead>
+        <tr>
+          <th><!-- Intentinaly left empty --></th>
+          <th>Name: </th>
+          <th>Author</th>
+          <th>Subject</th>
+          <th>Type</th>
+          <th>Published</th>
+          <th><!-- Intentinaly left empty --></th>
+    </tr>
+      </thead>
+      <tbody>
+      
+        <tr *ngFor="let book of books | filter: 'name' : searchString | paginate: {itemsPerPage: 20, currentPage: p}; index as i">
+    
+            <td>
+          <div class="checkbox">
+            <label><input type="checkbox" value="{{book.id}}" (click)="markBook(book.id, book.content)"></label>
+          </div>
+         </td>          
+          <td class="entry"> {{book.name}} </td>
+               
+              <td class="entry">{{book.author}} </td>
+          
+                <td class="entry">{{book.subject}} </td>
+              
+           <td class="entry"> {{book.type}}</td>
+              <td class="entry">{{book.publishingYear}}</td>
+        <td><!-- <button class="btn btn-success dwnldBtn" (click)="onDownloadBook(book.id)"> Download </button> -->
+          <a class="btn btn-success dwnldBtn" (click)="downloadLink( book.content )" [href]="downloadLink(book.content)">Download</a>
+      
+          <button class="btn btn-secondary editBtn" (click) = "editMyBook(i)" *ngIf="hideEditBtn(book.created_by)" >Edit</button>
+                  <button class="btn btn-danger dltBtn" (click) = "deleteBook(book.id,i)" *ngIf="hideDeleteBtn(book.created_by)">Delete</button></td>
+    
+                </tr>
+               
+        </tbody>
+       
+        </table>
+        <div class="pgnwrap">
+          <div class="paginationPlaceHolder">
+            <pagination-controls (pageChange)="p = $event" class="my-pagination"></pagination-controls>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+        <button class="btn btn-danger btn-block dltSelected" (click) = "deleteSelectedBooks()"  >Delete selected books</button>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <button class="btn btn-success btn-block toProfile" routerLink="/profile"   >Profile</button>
+        </div>
+      </div>
+    </div>
