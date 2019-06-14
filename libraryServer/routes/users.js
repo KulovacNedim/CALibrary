@@ -1,9 +1,48 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const users = express.Router()
+const cors = require('cors')
+const jwt = require('jsonwebtoken')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const User = require('../models/User')
+users.use(cors())
 
-module.exports = router;
+process.env.SECRET_KEY = 'secret'
+
+users.post('/register', (req, res) => {
+  const today = new Date()
+  const userData = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    password: req.body.password,
+    role_id: 3,
+    created: today
+  }
+
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+    .then(user => {
+      if (!user) {
+        User.create(userData)
+          .then(user => {
+            let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
+              expiresIn: 1440
+            })
+            res.json({ token: token })
+          })
+          .catch(err => {
+            res.send('error: ' + err)
+          })
+      } else {
+        res.json('Warning: User already exists')
+      }
+    })
+    .catch(err => {
+      res.send('error: ' + err)
+    })
+})
+
+module.exports = users
