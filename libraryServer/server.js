@@ -3,7 +3,7 @@ var app = express();
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
-app.engine('handlebars', exphbs());
+app.engine('handlebars', exphbs()); 
 
 
 const cors = require('cors')

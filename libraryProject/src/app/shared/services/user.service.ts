@@ -24,20 +24,15 @@ export class UserService {
     return this.http.get('http://localhost:8080/users/getUsers');
   }
 
-  editUser(user_id:number) {
-
-
-    return this.getUserById(user_id)
-
-   
-   
+  editUser(user_id: number) {
+    return this.getUserById(user_id);
   }
 
-  setUser(user1:UserDetails){
-this.user=user1
+  setUser(user1: UserDetails) {
+    this.user = user1;
   }
 
-  getUserById(user_id:number){
+  getUserById(user_id: number) {
     return this.http.get('http://localhost:8080/users/getUser/' + user_id);
   }
 }
